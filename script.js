@@ -196,7 +196,7 @@ function initAcceptPage() {
     const preselectedPlan = params.get('plan');
     
     const planMessages = {
-        plan1: "Windows down, music up!.",
+        plan1: "Let's rage on the road?!",
         plan2: "Tony would approve!",
         plan3: "I'm just happy to be dragged around by a baddie.",
         plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
@@ -251,7 +251,7 @@ function updateWhatsAppLink(planId) {
         plan1: "Hey! I'm in for the road trip 🚗 Let's figure out a day?",
         plan2: "Tony Bourdain it is 🎬 When are we doing this?",
         plan3: "My turn to show you around 🗺️ Pick a day!",
-        plan4: "A Bengali fish please 👨‍🍳 When works for you?"
+        plan4: "Cook for me please Chef 👨‍🍳 When works for you?"
     };
     
     const waBtn = document.getElementById('waBtn');
