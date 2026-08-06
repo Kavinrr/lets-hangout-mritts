@@ -2,7 +2,7 @@
 const bgMusic = document.getElementById('bgMusic');
 const musicToggleSm = document.getElementById('musicToggleSm');
 let isPlaying = localStorage.getItem('musicPlaying') !== 'false';
-let musicUnlocked = localStorage.getItem('musicUnlocked') === 'true';
+let musicUnlocked = sessionStorage.getItem('musicUnlocked') === 'true';
 
 // Check if we're on the home page (has splash)
 const splash = document.getElementById('splash');
@@ -18,7 +18,7 @@ function enterSite() {
     // Unlock and start music
     musicUnlocked = true;
     isPlaying = true;
-    localStorage.setItem('musicUnlocked', 'true');
+    sessionStorage.setItem('musicUnlocked', 'true');
     localStorage.setItem('musicPlaying', 'true');
     localStorage.setItem('musicTime', '0');
     
@@ -68,7 +68,7 @@ function toggleMusic() {
         // First interaction on a non-home page — unlock
         musicUnlocked = true;
         isPlaying = true;
-        localStorage.setItem('musicUnlocked', 'true');
+        sessionStorage.setItem('musicUnlocked', 'true');
         localStorage.setItem('musicPlaying', 'true');
         bgMusic.volume = 0.4;
         bgMusic.muted = false;
