@@ -6,7 +6,7 @@
     <title>A Hangout proposal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -43,6 +43,14 @@
                 <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
                     <span class="music-icon">♪</span>
                 </button>
+                <div class="pause-hint">
+                    <span class="pause-hint-text">pause</span>
+                    <svg class="pause-hint-arrow" width="40" height="30" viewBox="0 0 40 30" fill="none">
+                        <path d="M38 2C30 4 20 12 14 20C10 26 6 28 4 28" stroke="#e8c547" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                        <path d="M4 28L8 24" stroke="#e8c547" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M4 28L2 23" stroke="#e8c547" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
             </div>
             <div class="now-playing">
                 <span class="song-name">Birds Don't Sing</span>
@@ -306,14 +314,19 @@
         <div class="container center-content">
             <h2 class="decline-title">Wait...</h2>
             <p class="decline-subtitle">Are you absolutely sure 🥹👉🏽👈🏽 ?</p>
+            
             <p class="decline-text">This is who you are saying "no" to, btw. 🥺</p>
+            
             <p class="decline-arrow">↓</p>
+            
             <div class="baby-photo-placeholder">
                 <div class="photo-frame">
                     <img src="images/personal/IMG_20260806_191022_727.jpg" alt="Little Kavin">
                 </div>
             </div>
+            
             <p class="decline-text">He'd be mildly disappointed.</p>
+            
             <div class="btn-primary" onclick="goBack()" style="margin-top: 1.5rem;">Maybe I clicked the wrong button</div>
         </div>
     </section>
