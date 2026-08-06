@@ -1,5 +1,11 @@
 // ===== PAGE NAVIGATION WITH HISTORY =====
 function showPage(pageId, pushState = true) {
+    // Save scroll position of current page before switching
+    const currentPage = document.querySelector('.page.active');
+    if (currentPage && pushState) {
+        currentPage.dataset.scrollPos = window.scrollY;
+    }
+
     // Hide all pages
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
@@ -9,7 +15,13 @@ function showPage(pageId, pushState = true) {
     const target = document.getElementById(pageId);
     if (target) {
         target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        
+        // Restore scroll position if going back, otherwise go to top
+        if (!pushState && target.dataset.scrollPos) {
+            window.scrollTo({ top: parseInt(target.dataset.scrollPos), behavior: 'instant' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
         
         // Re-trigger fade animation
         target.style.animation = 'none';
@@ -65,7 +77,7 @@ function selectOption(planId) {
     showPage('accept');
     
     const planMessages = {
-        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos.",
+        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos. Time for some road rage ‼️",
         plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
         plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
         plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
@@ -165,17 +177,19 @@ const planSelect = document.getElementById('planSelect');
 planSelect.addEventListener('change', () => {
     const selected = planSelect.value;
     const planMessages = {
-        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos.",
+        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos. Time for some road rage ‼️",
         plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
         plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
         plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
     };
     
+    const acceptTitle = document.getElementById('acceptTitle');
     const acceptIntro = document.getElementById('acceptIntro');
     const dropdownWrapper = document.getElementById('dropdownWrapper');
     const confirmSection = document.getElementById('acceptConfirm');
     const backBtn = document.getElementById('backBtn');
     
+    acceptTitle.textContent = 'Great choice.';
     if (planMessages[selected]) {
         acceptIntro.textContent = planMessages[selected];
     }
@@ -184,6 +198,26 @@ planSelect.addEventListener('change', () => {
     if (backBtn) backBtn.style.display = 'none';
     updateWhatsAppLink(selected);
 });
+
+// Reset accept page when navigating to it via "I'm in" (no pre-selection)
+const originalShowPage = showPage;
+showPage = function(pageId, pushState = true) {
+    // Reset accept page if going there without selectOption
+    if (pageId === 'accept' && !selectedPlan) {
+        document.getElementById('acceptTitle').textContent = 'You just made my week.';
+        document.getElementById('acceptIntro').textContent = "Personally, I'd be fine to just share a chai and sutta break with you. But since we're here...";
+        document.getElementById('dropdownWrapper').style.display = '';
+        document.getElementById('acceptConfirm').style.display = 'none';
+        document.getElementById('backBtn').style.display = '';
+        document.getElementById('planSelect').value = '';
+        document.getElementById('waBtn').style.display = 'none';
+    }
+    // Reset selectedPlan after showing accept
+    if (pageId !== 'accept') {
+        selectedPlan = null;
+    }
+    originalShowPage(pageId, pushState);
+};
 
 // ===== CONFETTI =====
 function launchConfetti() {
