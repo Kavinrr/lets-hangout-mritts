@@ -253,7 +253,7 @@ body {
 .pause-hint {
     position: absolute;
     bottom: -10px;
-    right: calc(50% - 170px);
+    right: calc(50% - 148px);
     display: flex;
     align-items: center;
     gap: 3px;
