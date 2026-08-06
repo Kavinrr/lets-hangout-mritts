@@ -395,30 +395,13 @@ body {
     border-radius: 50px;
     margin-bottom: 0;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(232, 197, 71, 0.2);
+    box-shadow: 0 0 8px rgba(232, 197, 71, 0.3);
+    animation: strokeGlow 3s ease-in-out infinite;
 }
 
-.pick-adventure::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-    );
-    animation: edgeGlow 3s ease-in-out infinite;
-}
-
-@keyframes edgeGlow {
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
+@keyframes strokeGlow {
+    0%, 100% { box-shadow: 0 0 8px rgba(232, 197, 71, 0.3), 0 0 2px rgba(232, 197, 71, 0.5); }
+    50% { box-shadow: 0 0 18px rgba(232, 197, 71, 0.6), 0 0 4px rgba(232, 197, 71, 0.8); }
 }
 
 /* ===== CARDS ===== */
