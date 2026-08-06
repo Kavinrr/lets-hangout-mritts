@@ -271,29 +271,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (splash) splash.remove();
             sessionStorage.removeItem('cameFromInnerPage');
             
-            // On mobile, play is blocked without gesture even on back navigation
-            // Set up immediate resume on any interaction
+            // Resume music
             bgMusic.volume = 0.4;
             bgMusic.muted = false;
             const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
             if (savedTime > 0) bgMusic.currentTime = savedTime;
             
-            // Try playing
-            const p = bgMusic.play();
-            if (p) p.catch(() => {});
-            
-            // Also ensure it resumes on any touch/click/scroll
-            const forcePlay = () => {
-                if (bgMusic.paused && isPlaying) {
-                    bgMusic.play();
-                }
-                document.removeEventListener('touchstart', forcePlay);
-                document.removeEventListener('click', forcePlay);
-                document.removeEventListener('scroll', forcePlay);
-            };
-            document.addEventListener('touchstart', forcePlay, { once: true });
-            document.addEventListener('click', forcePlay, { once: true });
-            document.addEventListener('scroll', forcePlay, { once: true });
+            bgMusic.play().catch(() => {});
             
             // Save position
             bgMusic.addEventListener('timeupdate', () => {
@@ -303,6 +287,23 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (!musicUnlocked) {
             // Fresh visit — splash shows naturally, wait for tap
         }
+        
+        // Always listen for interactions to resume music on home page
+        const tryResume = () => {
+            if (bgMusic.paused && isPlaying && musicUnlocked) {
+                const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
+                if (savedTime > 0 && bgMusic.currentTime === 0) {
+                    bgMusic.currentTime = savedTime;
+                }
+                bgMusic.volume = 0.4;
+                bgMusic.play();
+                updateVinylState();
+            }
+        };
+        document.addEventListener('touchstart', tryResume, { once: true });
+        document.addEventListener('click', tryResume, { once: true });
+        document.addEventListener('scroll', tryResume, { once: true });
+        
         animateCards();
     } else {
         // Inner pages: mark that we came from inner page (for back navigation)
