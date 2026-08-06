@@ -16,8 +16,16 @@ function showPage(pageId, pushState = true) {
     if (target) {
         target.classList.add('active');
         
-        // Restore scroll position if going back, otherwise go to top
-        if (!pushState && target.dataset.scrollPos) {
+        // Restore scroll position if going back to home, otherwise go to top
+        if (!pushState && pageId === 'home') {
+            // Scroll to "Pick Your Adventure" section
+            setTimeout(() => {
+                const pickAdventure = document.querySelector('.pick-adventure');
+                if (pickAdventure) {
+                    pickAdventure.scrollIntoView({ behavior: 'instant', block: 'start' });
+                }
+            }, 10);
+        } else if (!pushState && target.dataset.scrollPos) {
             window.scrollTo({ top: parseInt(target.dataset.scrollPos), behavior: 'instant' });
         } else {
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -77,10 +85,10 @@ function selectOption(planId) {
     showPage('accept');
     
     const planMessages = {
-        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos. Time for some road rage ‼️",
-        plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
-        plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
-        plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
+        plan1: "Let's rage on the road?!",
+        plan2: "Tony would approve!",
+        plan3: "I'm just happy to be dragged around by a baddie.",
+        plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
     };
 
     const acceptTitle = document.getElementById('acceptTitle');
@@ -105,7 +113,7 @@ function updateWhatsAppLink(planId) {
         plan1: "Hey! I'm in for the road trip 🚗 Let's figure out a day?",
         plan2: "Tony Bourdain it is 🎬 When are we doing this?",
         plan3: "My turn to show you around 🗺️ Pick a day!",
-        plan4: "Bengali fish please 👨‍🍳 When works for you?"
+        plan4: "Cook for me please Chef 👨‍🍳 When works for you?"
     };
     
     const waBtn = document.getElementById('waBtn');
@@ -177,10 +185,10 @@ const planSelect = document.getElementById('planSelect');
 planSelect.addEventListener('change', () => {
     const selected = planSelect.value;
     const planMessages = {
-        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos. Time for some road rage ‼️",
-        plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
-        plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
-        plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
+        plan1: "Let's rage on the road?!",
+        plan2: "Tony would approve!",
+        plan3: "I'm just happy to be dragged around by a baddie.",
+        plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
     };
     
     const acceptTitle = document.getElementById('acceptTitle');
