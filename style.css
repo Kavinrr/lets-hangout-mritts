@@ -877,6 +877,25 @@ body {
     color: var(--text);
 }
 
+.btn-whatsapp {
+    display: inline-block;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 1.5rem 0;
+    transition: var(--transition);
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+}
+
 .date-note {
     color: var(--text-muted);
     font-size: 0.85rem !important;

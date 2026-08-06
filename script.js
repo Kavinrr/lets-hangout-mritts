@@ -186,6 +186,7 @@ function initAcceptPage() {
         dropdownWrapper.style.display = 'none';
         confirmSection.style.display = 'block';
         if (backBtn) backBtn.style.display = 'none';
+        updateWhatsAppLink(preselectedPlan);
     }
     
     // Dropdown change handler
@@ -198,11 +199,29 @@ function initAcceptPage() {
             dropdownWrapper.style.display = 'none';
             confirmSection.style.display = 'block';
             if (backBtn) backBtn.style.display = 'none';
+            updateWhatsAppLink(selected);
         });
     }
     
     // Launch confetti
     launchConfetti();
+}
+
+// ===== WHATSAPP LINK =====
+function updateWhatsAppLink(planId) {
+    const waMessages = {
+        plan1: "Hey! I'm in for the road trip 🚗 Let's figure out a day?",
+        plan2: "Tony Bourdain it is 🎬 When are we doing this?",
+        plan3: "My turn to show you around 🗺️ Pick a day!",
+        plan4: "Bengali fish please 👨‍🍳 When works for you?"
+    };
+    
+    const waBtn = document.getElementById('waBtn');
+    if (waBtn && waMessages[planId]) {
+        const msg = encodeURIComponent(waMessages[planId]);
+        waBtn.href = `https://wa.me/918248324352?text=${msg}`;
+        waBtn.style.display = 'inline-block';
+    }
 }
 
 // ===== PAGE INIT =====
