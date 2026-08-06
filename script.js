@@ -196,10 +196,10 @@ function initAcceptPage() {
     const preselectedPlan = params.get('plan');
     
     const planMessages = {
-        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos.",
-        plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
-        plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
-        plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
+        plan1: "Windows down, music up!.",
+        plan2: "Tony would approve!",
+        plan3: "I'm just happy to be dragged around by a baddie.",
+        plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
     };
 
     const planNames = {
@@ -251,7 +251,7 @@ function updateWhatsAppLink(planId) {
         plan1: "Hey! I'm in for the road trip 🚗 Let's figure out a day?",
         plan2: "Tony Bourdain it is 🎬 When are we doing this?",
         plan3: "My turn to show you around 🗺️ Pick a day!",
-        plan4: "Bengali fish please 👨‍🍳 When works for you?"
+        plan4: "A Bengali fish please 👨‍🍳 When works for you?"
     };
     
     const waBtn = document.getElementById('waBtn');
