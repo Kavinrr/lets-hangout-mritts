@@ -292,17 +292,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const tryResume = () => {
             if (bgMusic.paused && isPlaying && musicUnlocked) {
                 const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
-                if (savedTime > 0 && bgMusic.currentTime === 0) {
+                if (savedTime > 0 && Math.abs(bgMusic.currentTime - savedTime) > 2) {
                     bgMusic.currentTime = savedTime;
                 }
                 bgMusic.volume = 0.4;
-                bgMusic.play();
-                updateVinylState();
+                bgMusic.muted = false;
+                bgMusic.play().then(() => {
+                    updateVinylState();
+                }).catch(() => {});
             }
         };
-        document.addEventListener('touchstart', tryResume, { once: true });
-        document.addEventListener('click', tryResume, { once: true });
-        document.addEventListener('scroll', tryResume, { once: true });
+        
+        // Multiple event listeners for maximum coverage
+        document.addEventListener('touchstart', tryResume, { passive: true });
+        document.addEventListener('click', tryResume);
+        document.addEventListener('scroll', tryResume, { passive: true });
+        document.addEventListener('touchmove', tryResume, { passive: true });
+        
+        // Also try on pageshow (fires on back/forward cache)
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) {
+                tryResume();
+            }
+        });
         
         animateCards();
     } else {
