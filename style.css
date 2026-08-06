@@ -253,10 +253,10 @@ body {
 .pause-hint {
     position: absolute;
     bottom: -8px;
-    right: -65px;
+    right: -40px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .pause-hint-arrow {
@@ -948,18 +948,18 @@ body {
 .decline-title {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 3.5rem);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .decline-subtitle {
     font-size: clamp(1.3rem, 3vw, 1.6rem);
     color: var(--text-muted);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
 }
 
 .baby-photo-placeholder {
-    margin: 0.6rem 0;
+    margin: 0.3rem 0;
 }
 
 .photo-frame {
@@ -989,7 +989,7 @@ body {
 
 .decline-text {
     font-size: 1.1rem;
-    margin: 0.6rem 0;
+    margin: 0.3rem 0;
     color: var(--text-muted);
     line-height: 1.6;
 }
@@ -997,7 +997,7 @@ body {
 .decline-arrow {
     font-size: 2rem;
     color: var(--accent);
-    margin: 0.4rem 0;
+    margin: 0.2rem 0;
     animation: bounceDown 1.5s ease-in-out infinite;
 }
 
