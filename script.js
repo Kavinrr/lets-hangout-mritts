@@ -185,9 +185,9 @@ const planSelect = document.getElementById('planSelect');
 planSelect.addEventListener('change', () => {
     const selected = planSelect.value;
     const planMessages = {
-        plan1: "Let's rage on the road?!",
-        plan2: "Tony would approve!",
-        plan3: "I'm just happy to be dragged around by a baddie.",
+        plan1: "Time for a roadroad‼️",
+        plan2: "Tony would approve‼️",
+        plan3: "I'm just happy to be dragged around by a baddie. :P",
         plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
     };
     
