@@ -157,6 +157,13 @@ function initAcceptPage() {
     const params = new URLSearchParams(window.location.search);
     const preselectedPlan = params.get('plan');
     
+    const planMessages = {
+        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos.",
+        plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
+        plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
+        plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
+    };
+
     const planNames = {
         plan1: 'Road Trip.exe',
         plan2: 'Anthony Bourdain Appreciation Society',
@@ -172,9 +179,9 @@ function initAcceptPage() {
     const backBtn = document.getElementById('backBtn');
     
     if (preselectedPlan && planNames[preselectedPlan]) {
-        // Came from a specific plan page
+        // Came from a specific plan page — hide intro & dropdown, show custom message
         acceptTitle.textContent = 'Great choice.';
-        acceptIntro.textContent = `You picked "${planNames[preselectedPlan]}". Love it.`;
+        acceptIntro.textContent = planMessages[preselectedPlan];
         dropdown.value = preselectedPlan;
         dropdownWrapper.style.display = 'none';
         confirmSection.style.display = 'block';
@@ -184,6 +191,11 @@ function initAcceptPage() {
     // Dropdown change handler
     if (dropdown) {
         dropdown.addEventListener('change', () => {
+            const selected = dropdown.value;
+            if (planMessages[selected]) {
+                acceptIntro.textContent = planMessages[selected];
+            }
+            dropdownWrapper.style.display = 'none';
             confirmSection.style.display = 'block';
             if (backBtn) backBtn.style.display = 'none';
         });
