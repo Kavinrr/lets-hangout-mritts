@@ -270,16 +270,39 @@ document.addEventListener('DOMContentLoaded', () => {
             // Coming back from an inner page — no splash, resume music
             if (splash) splash.remove();
             sessionStorage.removeItem('cameFromInnerPage');
-            initMusic();
-        } else if (musicUnlocked) {
-            // Refresh on home page — show splash again
-            // Reset session so splash shows
-            if (splash) {
-                // Show splash, but music is already unlocked
-                // Don't remove splash — let user tap it
-            }
+            
+            // On mobile, play is blocked without gesture even on back navigation
+            // Set up immediate resume on any interaction
+            bgMusic.volume = 0.4;
+            bgMusic.muted = false;
+            const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
+            if (savedTime > 0) bgMusic.currentTime = savedTime;
+            
+            // Try playing
+            const p = bgMusic.play();
+            if (p) p.catch(() => {});
+            
+            // Also ensure it resumes on any touch/click/scroll
+            const forcePlay = () => {
+                if (bgMusic.paused && isPlaying) {
+                    bgMusic.play();
+                }
+                document.removeEventListener('touchstart', forcePlay);
+                document.removeEventListener('click', forcePlay);
+                document.removeEventListener('scroll', forcePlay);
+            };
+            document.addEventListener('touchstart', forcePlay, { once: true });
+            document.addEventListener('click', forcePlay, { once: true });
+            document.addEventListener('scroll', forcePlay, { once: true });
+            
+            // Save position
+            bgMusic.addEventListener('timeupdate', () => {
+                localStorage.setItem('musicTime', String(bgMusic.currentTime));
+            });
+            updateVinylState();
+        } else if (!musicUnlocked) {
+            // Fresh visit — splash shows naturally, wait for tap
         }
-        // Fresh visit — splash shows naturally, wait for tap
         animateCards();
     } else {
         // Inner pages: mark that we came from inner page (for back navigation)
