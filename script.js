@@ -50,7 +50,15 @@ function initMusic() {
     
     if (isPlaying) {
         bgMusic.play().catch(() => {
-            // Autoplay blocked — that's fine, user can tap toggle
+            // Autoplay blocked on this page — resume on first interaction
+            const resumeOnClick = () => {
+                bgMusic.play();
+                updateVinylState();
+                document.removeEventListener('click', resumeOnClick);
+                document.removeEventListener('touchstart', resumeOnClick);
+            };
+            document.addEventListener('click', resumeOnClick);
+            document.addEventListener('touchstart', resumeOnClick);
         });
     }
     
