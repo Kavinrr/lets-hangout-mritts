@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Trip.exe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- VINYL SMALL -->
+    <div class="vinyl-small visible" id="vinylSmall">
+        <div class="vinyl vinyl-sm" id="vinylSm">
+            <div class="vinyl-cover"><img src="images/vinyl2.jpg" alt="Cover"></div>
+            <div class="vinyl-hole"></div>
+        </div>
+        <button class="music-toggle music-toggle-sm" id="musicToggleSm" aria-label="Toggle music">
+            <span class="music-icon-sm">♪</span>
+        </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- PLAN 1: ROAD TRIP -->
+    <section id="plan1" class="page active plan-detail theme-road">
+        <div class="container">
+            <span class="plan-number">Option 01</span>
+            <h2 class="plan-title">Road Trip.exe</h2>
+            <div class="plan-hero-img">
+                <img src="images/options/roadtrip.avif" alt="Road trip vibes">
+            </div>
+            <div class="plan-content">
+                <h4>The Agenda</h4>
+                <p class="plan-lead">I'll come pick you up.</p>
+                <p>We disappear from Bangalore for a few hours, find an unnecessarily beautiful road, eat somewhere we've never been, chase a sunset, probably get lost once, and pretend that was part of the plan.</p>
+                
+                <h4>Possible Destinations</h4>
+                <ul class="destinations">
+                    <li>Skandagiri foothills</li>
+                    <li>Kaiwara Hills</li>
+                    <li>Chunchi Falls</li>
+                    <li>Savandurga viewpoints</li>
+                    <li>Antaragange</li>
+                    <li>BR Hills (longer drive)</li>
+                    <li>Mekedatu side roads <span class="note">(depending on conditions)</span></li>
+                </ul>
+
+                <div class="objective">
+                    <h4>Objective</h4>
+                    <p>Less planning.<br>More windows down, music up, and seeing where the road takes us.</p>
+                </div>
+            </div>
+            <div class="plan-actions">
+                <a href="index.html" class="btn-primary">← Back to plans</a>
+                <a href="accept.html?plan=plan1" class="btn-primary">This one sounds good →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Built with caffeine, questionable amounts of effort, and an unreasonable amount of excitement.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

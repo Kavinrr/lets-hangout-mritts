@@ -28,7 +28,7 @@
     </div>
 
     <!-- AUDIO -->
-    <audio id="bgMusic" loop autoplay>
+    <audio id="bgMusic" loop>
         <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
     </audio>
 
@@ -59,254 +59,42 @@
             <h2 class="section-title pick-adventure">Pick Your Adventure.</h2>
 
             <div class="cards-grid">
-                <div class="card card-1" onclick="showPage('plan1')">
+                <a href="plan1.html" class="card card-1">
                     <span class="card-number">01</span>
                     <h3 class="card-title">🚗 Road Trip.exe</h3>
                     <p class="card-preview">I'll come pick you up. We disappear from Bangalore for a few hours.</p>
                     <span class="card-cta">Open →</span>
-                </div>
-                <div class="card card-2" onclick="showPage('plan2')">
+                </a>
+                <a href="plan2.html" class="card card-2">
                     <span class="card-number">02</span>
                     <h3 class="card-title">🎬 Anthony Bourdain Appreciation Society</h3>
                     <p class="card-preview">I'll introduce you to one of my favourite humans.</p>
                     <span class="card-cta">Open →</span>
-                </div>
-                <div class="card card-3" onclick="showPage('plan3')">
+                </a>
+                <a href="plan3.html" class="card card-3">
                     <span class="card-number">03</span>
                     <h3 class="card-title">🗺️ Your Turn</h3>
                     <p class="card-preview">You once told me you'd show me your favourite places.</p>
                     <span class="card-cta">Open →</span>
-                </div>
-                <div class="card card-4" onclick="showPage('plan4')">
+                </a>
+                <a href="plan4.html" class="card card-4">
                     <span class="card-number">04</span>
                     <h3 class="card-title">👨‍🍳 Home Chef DLC</h3>
                     <p class="card-preview">Come over. I'll finally keep my promise.</p>
                     <span class="card-cta">Open →</span>
-                </div>
-                <div class="card card-vibe" onclick="showPage('vibe')">
+                </a>
+                <a href="vibe.html" class="card card-vibe">
                     <span class="card-number">✦</span>
                     <h3 class="card-title">What's the Vibe?</h3>
                     <p class="card-preview">Regardless of which adventure — this is what the day actually feels like.</p>
                     <span class="card-cta">Open →</span>
-                </div>
+                </a>
             </div>
 
             <div class="plans-footer">
-                <button class="btn-primary" onclick="showPage('final')">I've seen enough. Let's do this →</button>
-                <button class="btn-secondary" onclick="showPage('decline')">Hmm, I'm not sure about this.</button>
+                <a href="final.html" class="btn-primary">I've seen enough. Let's do this →</a>
+                <a href="decline.html" class="btn-secondary">Hmm, I'm not sure about this.</a>
             </div>
-        </div>
-    </section>
-
-    <!-- PLAN 1: ROAD TRIP -->
-    <section id="plan1" class="page plan-detail theme-road">
-        <div class="container">
-            <span class="plan-number">Option 01</span>
-            <h2 class="plan-title">Road Trip.exe</h2>
-            <div class="plan-hero-img">
-                <img src="images/options/roadtrip.avif" alt="Road trip vibes">
-            </div>
-            <div class="plan-content">
-                <h4>The Agenda</h4>
-                <p class="plan-lead">I'll come pick you up.</p>
-                <p>We disappear from Bangalore for a few hours, find an unnecessarily beautiful road, eat somewhere we've never been, chase a sunset, probably get lost once, and pretend that was part of the plan.</p>
-                
-                <h4>Possible Destinations</h4>
-                <ul class="destinations">
-                    <li>Skandagiri foothills</li>
-                    <li>Kaiwara Hills</li>
-                    <li>Chunchi Falls</li>
-                    <li>Savandurga viewpoints</li>
-                    <li>Antaragange</li>
-                    <li>BR Hills (longer drive)</li>
-                    <li>Mekedatu side roads <span class="note">(depending on conditions)</span></li>
-                </ul>
-
-                <div class="objective">
-                    <h4>Objective</h4>
-                    <p>Less planning.<br>More windows down, music up, and seeing where the road takes us.</p>
-                </div>
-            </div>
-            <div class="plan-actions">
-                <button class="btn-primary" onclick="showPage('home')">← Back to plans</button>
-                <button class="btn-primary" onclick="selectOption('plan1')">This one sounds good →</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- PLAN 2: BOURDAIN -->
-    <section id="plan2" class="page plan-detail theme-bourdain">
-        <div class="container">
-            <span class="plan-number">Option 02</span>
-            <h2 class="plan-title">Anthony Bourdain Appreciation Society</h2>
-            <div class="plan-hero-img img-bottom">
-                <img src="images/options/tony.jpeg" alt="Anthony Bourdain">
-            </div>
-            <div class="plan-content">
-                <h4>The Agenda</h4>
-                <p class="plan-lead">I'll introduce you to one of my favourite humans.</p>
-                <p>We'll watch Tony together, I'll probably over-explain why Anthony Bourdain changed the way I think about travel, food and people, and afterwards we'll continue the conversation over lunch.</p>
-                <p>If you're feeling adventurous, we attempt the greatest Indiranagar beer crawl.</p>
-                <p>If beer isn't your thing, coffee wins.</p>
-
-                <div class="objective">
-                    <h4>Objective</h4>
-                    <p>Good stories.<br>Better conversations.</p>
-                </div>
-            </div>
-            <div class="plan-actions">
-                <button class="btn-primary" onclick="showPage('home')">← Back to plans</button>
-                <button class="btn-primary" onclick="selectOption('plan2')">This one sounds good →</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- PLAN 3: YOUR TURN -->
-    <section id="plan3" class="page plan-detail theme-yourturn">
-        <div class="container">
-            <span class="plan-number">Option 03</span>
-            <h2 class="plan-title">Your Turn</h2>
-            <div class="plan-content">
-                <h4>The Agenda</h4>
-                <p class="plan-lead">You once told me you'd show me your favourite places.</p>
-                <p>Hesaraghatta.<br>Jayanagar.<br>Malleswaram.<br>JP Nagar.</p>
-                <p>I'm holding you to that promise.</p>
-
-                <h4>Bonus Objective</h4>
-                <p>We walk into random clothing stores and pick one outfit for each other.<br>No judgment.<br>Only questionable fashion decisions.</p>
-
-                <div class="objective">
-                    <h4>Objective</h4>
-                    <p>Your city. Your rules.</p>
-                </div>
-            </div>
-            <div class="plan-actions">
-                <button class="btn-primary" onclick="showPage('home')">← Back to plans</button>
-                <button class="btn-primary" onclick="selectOption('plan3')">This one sounds good →</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- PLAN 4: HOME CHEF -->
-    <section id="plan4" class="page plan-detail theme-homechef">
-        <div class="container">
-            <span class="plan-number">Option 04</span>
-            <h2 class="plan-title">Home Chef DLC</h2>
-            <div class="plan-content">
-                <h4>The Agenda</h4>
-                <p class="plan-lead">Come over.</p>
-                <p>I'll finally keep my promise and cook you Bengali fish.</p>
-                <div class="plan-inline-img">
-                    <img src="images/options/home chef.jpg" alt="Home cooking vibes">
-                </div>
-                <p>We can watch YouTube.<br>Watch a movie.<br>Go for a walk around Indiranagar.<br>Or do absolutely nothing.</p>
-                <p>Somehow doing nothing is nicer when you're with someone you enjoy.</p>
-
-                <div class="objective">
-                    <h4>Objective</h4>
-                    <p>Good food.<br>Comfortable silence.<br>Zero pressure.</p>
-                </div>
-            </div>
-            <div class="plan-actions">
-                <button class="btn-primary" onclick="showPage('home')">← Back to plans</button>
-                <button class="btn-primary" onclick="selectOption('plan4')">This one sounds good →</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- VIBE PAGE -->
-    <section id="vibe" class="page plan-detail theme-vibe">
-        <div class="container">
-            <span class="plan-number">✦</span>
-            <h2 class="plan-title">What's the Vibe?</h2>
-            <div class="plan-content">
-                <p class="plan-lead">Regardless of which adventure — this is what the day actually feels like.</p>
-                
-                <ul class="vibe-list">
-                    <li>Sitting quietly in a park without feeling the need to constantly talk.</li>
-                    <li>Nudging each other's shoes while sitting on a bench.
-                        <div class="vibe-img"><img src="images/vibes/feet nudging.jpg" alt="Nudging shoes"></div>
-                    </li>
-                    <li>Taking candid photos together.
-                        <div class="vibe-img"><img src="images/vibes/cute pic.jpg" alt="Candid moments"></div>
-                    </li>
-                    <li>Catching up on everything we've missed.</li>
-                    <li>Walking without any destination in mind.</li>
-                    <li>Getting dessert after we've already said we're full.</li>
-                    <li>Rating random dogs we meet on the street.</li>
-                    <li>Going into random bookstores or record stores "just for five minutes" and inevitably staying longer.</li>
-                    <li>Making spontaneous detours if we spot something interesting.</li>
-                    <li>Simply enjoying each other's company without worrying about having a perfect plan.</li>
-                </ul>
-
-                <div class="objective">
-                    <h4>The Point</h4>
-                    <p>No itinerary. No pressure. Just time together that doesn't need to be anything more than that.</p>
-                </div>
-            </div>
-            <div class="plan-actions">
-                <button class="btn-primary" onclick="showPage('home')">← Back to plans</button>
-                <button class="btn-primary" onclick="showPage('final')">I'm ready to decide →</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section id="final" class="page">
-        <div class="container center-content">
-            <h2 class="section-title">So... what do you say?</h2>
-            <div class="final-buttons">
-                <button class="btn-primary btn-accept" onclick="showPage('accept')">I'm in.</button>
-                <button class="btn-secondary" onclick="showPage('decline')">Hmm... not sure.</button>
-            </div>
-            <button class="btn-back-link" onclick="showPage('home')">← Back to plans</button>
-        </div>
-    </section>
-
-    <!-- ACCEPT PAGE -->
-    <section id="accept" class="page">
-        <div class="container center-content">
-            <div class="accept-animation">
-                <span class="confetti-emoji">🎉</span>
-            </div>
-            <h2 class="accept-title" id="acceptTitle">You just made my week.</h2>
-            <div class="accept-body">
-                <p id="acceptIntro">Personally, I'd be fine to just share a chai and sutta break with you. But since we're here...</p>
-                
-                <div class="dropdown-wrapper" id="dropdownWrapper">
-                    <label for="planSelect" class="dropdown-label">Pick the one that excites you most:</label>
-                    <select id="planSelect" class="plan-dropdown">
-                        <option value="" disabled selected>Choose an adventure...</option>
-                        <option value="plan1">Road Trip.exe</option>
-                        <option value="plan2">Anthony Bourdain Appreciation Society</option>
-                        <option value="plan3">Your Turn</option>
-                        <option value="plan4">Home Chef DLC</option>
-                    </select>
-                </div>
-
-                <div class="accept-confirm" id="acceptConfirm" style="display:none;">
-                    <p>Now just send me a message wherever you're most comfortable — Instagram, WhatsApp, carrier pigeon, anything works.</p>
-                    <p>Tell me the day and time that works for you, and we'll make it happen.</p>
-                    <p class="date-note">(Except August 14–24... future me will be outside the country trying not to miss Bangalore food.)</p>
-                </div>
-            </div>
-            <button class="btn-back-link" onclick="showPage('final')">← Back</button>
-        </div>
-    </section>
-
-    <!-- DECLINE PAGE -->
-    <section id="decline" class="page">
-        <div class="container center-content">
-            <h2 class="decline-title">Wait...</h2>
-            <p class="decline-subtitle">Are you absolutely sure?</p>
-            <div class="baby-photo-placeholder">
-                <div class="photo-frame">
-                    <img src="images/personal/IMG_20260806_191022_727.jpg" alt="Little Kavin">
-                </div>
-            </div>
-            <p class="decline-text">This tiny human spent years growing up just to make this website.</p>
-            <p class="decline-text">He'd be mildly disappointed.</p>
-            <button class="btn-primary" onclick="showPage('home')">Maybe I clicked the wrong button</button>
         </div>
     </section>
 

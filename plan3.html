@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Turn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- VINYL SMALL -->
+    <div class="vinyl-small visible" id="vinylSmall">
+        <div class="vinyl vinyl-sm" id="vinylSm">
+            <div class="vinyl-cover"><img src="images/vinyl2.jpg" alt="Cover"></div>
+            <div class="vinyl-hole"></div>
+        </div>
+        <button class="music-toggle music-toggle-sm" id="musicToggleSm" aria-label="Toggle music">
+            <span class="music-icon-sm">♪</span>
+        </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- PLAN 3: YOUR TURN -->
+    <section id="plan3" class="page active plan-detail theme-yourturn">
+        <div class="container">
+            <span class="plan-number">Option 03</span>
+            <h2 class="plan-title">Your Turn</h2>
+            <div class="plan-content">
+                <h4>The Agenda</h4>
+                <p class="plan-lead">You once told me you'd show me your favourite places.</p>
+                <p>Hesaraghatta.<br>Jayanagar.<br>Malleswaram.<br>JP Nagar.</p>
+                <p>I'm holding you to that promise.</p>
+
+                <h4>Bonus Objective</h4>
+                <p>We walk into random clothing stores and pick one outfit for each other.<br>No judgment.<br>Only questionable fashion decisions.</p>
+
+                <div class="objective">
+                    <h4>Objective</h4>
+                    <p>Your city. Your rules.</p>
+                </div>
+            </div>
+            <div class="plan-actions">
+                <a href="index.html" class="btn-primary">← Back to plans</a>
+                <a href="accept.html?plan=plan3" class="btn-primary">This one sounds good →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Built with caffeine, questionable amounts of effort, and an unreasonable amount of excitement.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

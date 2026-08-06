@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>So... what do you say?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- VINYL SMALL -->
+    <div class="vinyl-small visible" id="vinylSmall">
+        <div class="vinyl vinyl-sm" id="vinylSm">
+            <div class="vinyl-cover"><img src="images/vinyl2.jpg" alt="Cover"></div>
+            <div class="vinyl-hole"></div>
+        </div>
+        <button class="music-toggle music-toggle-sm" id="musicToggleSm" aria-label="Toggle music">
+            <span class="music-icon-sm">♪</span>
+        </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- FINAL CTA -->
+    <section id="final" class="page active">
+        <div class="container center-content">
+            <h2 class="section-title">So... what do you say?</h2>
+            <div class="final-buttons">
+                <a href="accept.html" class="btn-primary btn-accept">I'm in.</a>
+                <a href="decline.html" class="btn-secondary">Hmm... not sure.</a>
+            </div>
+            <a href="index.html" class="btn-back-link">← Back to plans</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Built with caffeine, questionable amounts of effort, and an unreasonable amount of excitement.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

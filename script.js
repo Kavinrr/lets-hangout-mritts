@@ -1,107 +1,77 @@
-// ===== PAGE NAVIGATION =====
-function showPage(pageId) {
-    // Prevent navigation if page is locked
-    if (pageLocked && pageId !== 'accept') return;
+// ===== MUSIC PERSISTENCE ACROSS PAGES =====
+const bgMusic = document.getElementById('bgMusic');
+const musicToggleSm = document.getElementById('musicToggleSm');
+let isPlaying = localStorage.getItem('musicPlaying') !== 'false';
+let musicUnlocked = localStorage.getItem('musicUnlocked') === 'true';
 
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // Show target page
-    const target = document.getElementById(pageId);
-    if (target) {
-        target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-        
-        // Re-trigger fade animation
-        target.style.animation = 'none';
-        target.offsetHeight;
-        target.style.animation = '';
-        
-        // Toggle vinyl visibility
-        const vinylSmall = document.getElementById('vinylSmall');
-        if (pageId === 'home') {
-            vinylSmall.classList.remove('visible');
-        } else {
-            vinylSmall.classList.add('visible');
-        }
+// Check if we're on the home page (has splash)
+const splash = document.getElementById('splash');
+const isHomePage = !!splash;
 
-        // Trigger confetti on accept page
-        if (pageId === 'accept') {
-            launchConfetti();
-        }
-
-        // Animate vibe list items
-        if (pageId === 'vibe') {
-            animateVibeList();
-        }
-
-        // Animate cards when showing home
-        if (pageId === 'home') {
-            animateCards();
-        }
-    }
-}
-
-// ===== PAGE LOCK (after option selected) =====
-let pageLocked = false;
-
-// ===== SELECT AN OPTION (from plan detail page) =====
-function selectOption(planId) {
-    const planNames = {
-        plan1: 'Road Trip.exe',
-        plan2: 'Anthony Bourdain Appreciation Society',
-        plan3: 'Your Turn',
-        plan4: 'Home Chef DLC'
-    };
-
-    // Lock the page — no going back
-    pageLocked = true;
-
-    // Show accept page with pre-selected option
-    showPage('accept');
-    
-    // Update the accept page messaging
-    const acceptTitle = document.getElementById('acceptTitle');
-    const acceptIntro = document.getElementById('acceptIntro');
-    const dropdown = document.getElementById('planSelect');
-    const dropdownWrapper = document.getElementById('dropdownWrapper');
-    const confirmSection = document.getElementById('acceptConfirm');
-    const backBtn = document.querySelector('#accept .btn-back-link');
-
-    acceptTitle.textContent = 'Great choice.';
-    acceptIntro.textContent = `You picked "${planNames[planId]}". Love it.`;
-    
-    // Pre-select the dropdown and hide it, show confirm directly
-    dropdown.value = planId;
-    dropdownWrapper.style.display = 'none';
-    confirmSection.style.display = 'block';
-    
-    // Hide back button since page is locked
-    if (backBtn) backBtn.style.display = 'none';
-}
-
-// ===== SPLASH / AUDIO UNLOCK =====
+// ===== SPLASH / AUDIO UNLOCK (home page only) =====
 function enterSite() {
-    const splash = document.getElementById('splash');
-    splash.classList.add('hidden');
-    setTimeout(() => splash.remove(), 600);
+    if (splash) {
+        splash.classList.add('hidden');
+        setTimeout(() => splash.remove(), 600);
+    }
     
-    // Start music immediately after user interaction
+    // Unlock and start music
+    musicUnlocked = true;
+    isPlaying = true;
+    localStorage.setItem('musicUnlocked', 'true');
+    localStorage.setItem('musicPlaying', 'true');
+    
     bgMusic.muted = false;
     bgMusic.volume = 0.4;
     bgMusic.play();
+    
+    updateVinylState();
 }
 
-// ===== VINYL / MUSIC =====
-const musicToggle = document.getElementById('musicToggle');
-const musicToggleSm = document.getElementById('musicToggleSm');
-const bgMusic = document.getElementById('bgMusic');
-let isPlaying = true;
+// ===== INIT MUSIC STATE =====
+function initMusic() {
+    if (!musicUnlocked) return;
+    
+    bgMusic.volume = 0.4;
+    bgMusic.muted = false;
+    
+    if (isPlaying) {
+        bgMusic.play().catch(() => {
+            // Autoplay blocked — that's fine, user can tap toggle
+        });
+    }
+    
+    updateVinylState();
+}
 
+// ===== TOGGLE MUSIC =====
 function toggleMusic() {
+    if (!musicUnlocked) {
+        // First interaction on a non-home page — unlock
+        musicUnlocked = true;
+        isPlaying = true;
+        localStorage.setItem('musicUnlocked', 'true');
+        localStorage.setItem('musicPlaying', 'true');
+        bgMusic.volume = 0.4;
+        bgMusic.muted = false;
+        bgMusic.play();
+        updateVinylState();
+        return;
+    }
+    
     isPlaying = !isPlaying;
+    localStorage.setItem('musicPlaying', String(isPlaying));
+    
+    if (isPlaying) {
+        bgMusic.play();
+    } else {
+        bgMusic.pause();
+    }
+    
+    updateVinylState();
+}
+
+function updateVinylState() {
     const vinyls = document.querySelectorAll('.vinyl');
     vinyls.forEach(v => {
         if (isPlaying) {
@@ -111,30 +81,20 @@ function toggleMusic() {
         }
     });
     
-    if (isPlaying) {
-        bgMusic.play();
-    } else {
-        bgMusic.pause();
-    }
-    
-    musicToggle.querySelector('.music-icon').textContent = isPlaying ? '♪' : '◼';
-    musicToggleSm.querySelector('.music-icon-sm').textContent = isPlaying ? '♪' : '◼';
+    // Update all toggle icons on this page
+    document.querySelectorAll('.music-icon, .music-icon-sm').forEach(icon => {
+        icon.textContent = isPlaying ? '♪' : '◼';
+    });
 }
 
-musicToggle.addEventListener('click', toggleMusic);
-musicToggleSm.addEventListener('click', toggleMusic);
-
-// ===== DROPDOWN CHANGE (on accept page) =====
-const planSelect = document.getElementById('planSelect');
-planSelect.addEventListener('change', () => {
-    const confirmSection = document.getElementById('acceptConfirm');
-    confirmSection.style.display = 'block';
-    
-    // Lock the page after selection
-    pageLocked = true;
-    const backBtn = document.querySelector('#accept .btn-back-link');
-    if (backBtn) backBtn.style.display = 'none';
-});
+// ===== BIND MUSIC TOGGLES =====
+const musicToggle = document.getElementById('musicToggle');
+if (musicToggle) {
+    musicToggle.addEventListener('click', toggleMusic);
+}
+if (musicToggleSm) {
+    musicToggleSm.addEventListener('click', toggleMusic);
+}
 
 // ===== CONFETTI =====
 function launchConfetti() {
@@ -192,32 +152,77 @@ function animateCards() {
     });
 }
 
-// Initial card animation on load
-animateCards();
-
-// ===== KEYBOARD NAV =====
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        const activePlan = document.querySelector('.plan-detail.active');
-        if (activePlan) {
-            showPage('home');
-        }
+// ===== ACCEPT PAGE LOGIC =====
+function initAcceptPage() {
+    const params = new URLSearchParams(window.location.search);
+    const preselectedPlan = params.get('plan');
+    
+    const planNames = {
+        plan1: 'Road Trip.exe',
+        plan2: 'Anthony Bourdain Appreciation Society',
+        plan3: 'Your Turn',
+        plan4: 'Home Chef DLC'
+    };
+    
+    const acceptTitle = document.getElementById('acceptTitle');
+    const acceptIntro = document.getElementById('acceptIntro');
+    const dropdown = document.getElementById('planSelect');
+    const dropdownWrapper = document.getElementById('dropdownWrapper');
+    const confirmSection = document.getElementById('acceptConfirm');
+    const backBtn = document.getElementById('backBtn');
+    
+    if (preselectedPlan && planNames[preselectedPlan]) {
+        // Came from a specific plan page
+        acceptTitle.textContent = 'Great choice.';
+        acceptIntro.textContent = `You picked "${planNames[preselectedPlan]}". Love it.`;
+        dropdown.value = preselectedPlan;
+        dropdownWrapper.style.display = 'none';
+        confirmSection.style.display = 'block';
+        if (backBtn) backBtn.style.display = 'none';
     }
-});
+    
+    // Dropdown change handler
+    if (dropdown) {
+        dropdown.addEventListener('change', () => {
+            confirmSection.style.display = 'block';
+            if (backBtn) backBtn.style.display = 'none';
+        });
+    }
+    
+    // Launch confetti
+    launchConfetti();
+}
 
-// ===== RESET ACCEPT PAGE when navigating away =====
-// So if she goes back and comes again, it resets
-const originalAcceptTitle = 'You just made my week.';
-const originalAcceptIntro = "Personally, I'd be fine to just share a chai and sutta break with you. But since we're here...";
-
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-back-link');
-    if (btn && btn.closest('#accept')) {
-        // Reset accept page state
-        document.getElementById('acceptTitle').textContent = originalAcceptTitle;
-        document.getElementById('acceptIntro').textContent = originalAcceptIntro;
-        document.getElementById('dropdownWrapper').style.display = '';
-        document.getElementById('acceptConfirm').style.display = 'none';
-        document.getElementById('planSelect').value = '';
+// ===== PAGE INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+    // Home page: splash logic + card animations
+    if (isHomePage) {
+        // If music was previously unlocked, skip splash
+        if (musicUnlocked) {
+            if (splash) {
+                splash.remove();
+            }
+            initMusic();
+        }
+        animateCards();
+    } else {
+        // Inner pages: remove splash if somehow present, start music
+        if (splash) splash.remove();
+        initMusic();
+    }
+    
+    // Accept page
+    if (document.getElementById('accept')) {
+        initAcceptPage();
+    }
+    
+    // Vibe page
+    if (document.querySelector('.vibe-list')) {
+        animateVibeList();
+    }
+    
+    // Update vinyl visual state
+    if (musicUnlocked) {
+        updateVinylState();
     }
 });

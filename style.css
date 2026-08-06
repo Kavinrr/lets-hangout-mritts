@@ -382,6 +382,9 @@ body {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
 }
 
 .card::before {
@@ -488,6 +491,8 @@ body {
     cursor: pointer;
     transition: var(--transition);
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-primary:hover {
@@ -506,6 +511,8 @@ body {
     cursor: pointer;
     transition: var(--transition);
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-secondary:hover {
@@ -530,6 +537,8 @@ body {
     cursor: pointer;
     margin-top: 2rem;
     transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-back-link:hover {

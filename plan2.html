@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthony Bourdain Appreciation Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- VINYL SMALL -->
+    <div class="vinyl-small visible" id="vinylSmall">
+        <div class="vinyl vinyl-sm" id="vinylSm">
+            <div class="vinyl-cover"><img src="images/vinyl2.jpg" alt="Cover"></div>
+            <div class="vinyl-hole"></div>
+        </div>
+        <button class="music-toggle music-toggle-sm" id="musicToggleSm" aria-label="Toggle music">
+            <span class="music-icon-sm">♪</span>
+        </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- PLAN 2: BOURDAIN -->
+    <section id="plan2" class="page active plan-detail theme-bourdain">
+        <div class="container">
+            <span class="plan-number">Option 02</span>
+            <h2 class="plan-title">Anthony Bourdain Appreciation Society</h2>
+            <div class="plan-hero-img img-bottom">
+                <img src="images/options/tony.jpeg" alt="Anthony Bourdain">
+            </div>
+            <div class="plan-content">
+                <h4>The Agenda</h4>
+                <p class="plan-lead">I'll introduce you to one of my favourite humans.</p>
+                <p>We'll watch Tony together, I'll probably over-explain why Anthony Bourdain changed the way I think about travel, food and people, and afterwards we'll continue the conversation over lunch.</p>
+                <p>If you're feeling adventurous, we attempt the greatest Indiranagar beer crawl.</p>
+                <p>If beer isn't your thing, coffee wins.</p>
+
+                <div class="objective">
+                    <h4>Objective</h4>
+                    <p>Good stories.<br>Better conversations.</p>
+                </div>
+            </div>
+            <div class="plan-actions">
+                <a href="index.html" class="btn-primary">← Back to plans</a>
+                <a href="accept.html?plan=plan2" class="btn-primary">This one sounds good →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Built with caffeine, questionable amounts of effort, and an unreasonable amount of excitement.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

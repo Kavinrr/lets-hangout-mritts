@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's the Vibe?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- VINYL SMALL -->
+    <div class="vinyl-small visible" id="vinylSmall">
+        <div class="vinyl vinyl-sm" id="vinylSm">
+            <div class="vinyl-cover"><img src="images/vinyl2.jpg" alt="Cover"></div>
+            <div class="vinyl-hole"></div>
+        </div>
+        <button class="music-toggle music-toggle-sm" id="musicToggleSm" aria-label="Toggle music">
+            <span class="music-icon-sm">♪</span>
+        </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- VIBE PAGE -->
+    <section id="vibe" class="page active plan-detail theme-vibe">
+        <div class="container">
+            <span class="plan-number">✦</span>
+            <h2 class="plan-title">What's the Vibe?</h2>
+            <div class="plan-content">
+                <p class="plan-lead">Regardless of which adventure — this is what the day actually feels like.</p>
+                
+                <ul class="vibe-list">
+                    <li>Sitting quietly in a park without feeling the need to constantly talk.</li>
+                    <li>Nudging each other's shoes while sitting on a bench.
+                        <div class="vibe-img"><img src="images/vibes/feet nudging.jpg" alt="Nudging shoes"></div>
+                    </li>
+                    <li>Taking candid photos together.
+                        <div class="vibe-img"><img src="images/vibes/cute pic.jpg" alt="Candid moments"></div>
+                    </li>
+                    <li>Catching up on everything we've missed.</li>
+                    <li>Walking without any destination in mind.</li>
+                    <li>Getting dessert after we've already said we're full.</li>
+                    <li>Rating random dogs we meet on the street.</li>
+                    <li>Going into random bookstores or record stores "just for five minutes" and inevitably staying longer.</li>
+                    <li>Making spontaneous detours if we spot something interesting.</li>
+                    <li>Simply enjoying each other's company without worrying about having a perfect plan.</li>
+                </ul>
+
+                <div class="objective">
+                    <h4>The Point</h4>
+                    <p>No itinerary. No pressure. Just time together that doesn't need to be anything more than that.</p>
+                </div>
+            </div>
+            <div class="plan-actions">
+                <a href="index.html" class="btn-primary">← Back to plans</a>
+                <a href="final.html" class="btn-primary">I'm ready to decide →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Built with caffeine, questionable amounts of effort, and an unreasonable amount of excitement.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

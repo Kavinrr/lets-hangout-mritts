@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You just made my week.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- VINYL SMALL -->
+    <div class="vinyl-small visible" id="vinylSmall">
+        <div class="vinyl vinyl-sm" id="vinylSm">
+            <div class="vinyl-cover"><img src="images/vinyl2.jpg" alt="Cover"></div>
+            <div class="vinyl-hole"></div>
+        </div>
+        <button class="music-toggle music-toggle-sm" id="musicToggleSm" aria-label="Toggle music">
+            <span class="music-icon-sm">♪</span>
+        </button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="music/TV_Girl_-_Birds_Don_t_Sing_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ACCEPT PAGE -->
+    <section id="accept" class="page active">
+        <div class="container center-content">
+            <div class="accept-animation">
+                <span class="confetti-emoji">🎉</span>
+            </div>
+            <h2 class="accept-title" id="acceptTitle">You just made my week.</h2>
+            <div class="accept-body">
+                <p id="acceptIntro">Personally, I'd be fine to just share a chai and sutta break with you. But since we're here...</p>
+                
+                <div class="dropdown-wrapper" id="dropdownWrapper">
+                    <label for="planSelect" class="dropdown-label">Pick the one that excites you most:</label>
+                    <select id="planSelect" class="plan-dropdown">
+                        <option value="" disabled selected>Choose an adventure...</option>
+                        <option value="plan1">Road Trip.exe</option>
+                        <option value="plan2">Anthony Bourdain Appreciation Society</option>
+                        <option value="plan3">Your Turn</option>
+                        <option value="plan4">Home Chef DLC</option>
+                    </select>
+                </div>
+
+                <div class="accept-confirm" id="acceptConfirm" style="display:none;">
+                    <p>Now just send me a message wherever you're most comfortable — Instagram, WhatsApp, carrier pigeon, anything works.</p>
+                    <p>Tell me the day and time that works for you, and we'll make it happen.</p>
+                    <p class="date-note">(Except August 14–24... future me will be outside the country trying not to miss Bangalore food.)</p>
+                </div>
+            </div>
+            <a href="final.html" class="btn-back-link" id="backBtn">← Back</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>Built with caffeine, questionable amounts of effort, and an unreasonable amount of excitement.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
