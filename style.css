@@ -381,18 +381,27 @@ body {
 }
 
 /* ===== "PICK YOUR ADVENTURE" STYLED AS CTA ===== */
-.pick-adventure {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
+.pick-adventure-wrapper {
     text-align: center;
     margin-bottom: 2rem;
-    color: var(--accent);
-    animation: subtlePulse 3s ease-in-out infinite;
 }
 
-@keyframes subtlePulse {
-    0%, 100% { opacity: 0.85; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.02); }
+.pick-adventure {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    display: inline-block;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.8rem 2.2rem;
+    border-radius: 50px;
+    margin-bottom: 0;
+    animation: ctaGlow 2.5s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(232, 197, 71, 0.2);
+}
+
+@keyframes ctaGlow {
+    0%, 100% { box-shadow: 0 4px 20px rgba(232, 197, 71, 0.2); transform: scale(1); }
+    50% { box-shadow: 0 6px 30px rgba(232, 197, 71, 0.4); transform: scale(1.03); }
 }
 
 /* ===== CARDS ===== */
