@@ -226,13 +226,11 @@ function updateWhatsAppLink(planId) {
 
 // ===== PAGE INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Home page: splash logic + card animations
+    // Home page: always show splash as entry experience
     if (isHomePage) {
-        // If music was previously unlocked, skip splash
+        // Always show splash — it's part of the experience
         if (musicUnlocked) {
-            if (splash) {
-                splash.remove();
-            }
+            // Music was already unlocked, start it behind the splash
             initMusic();
         }
         animateCards();
