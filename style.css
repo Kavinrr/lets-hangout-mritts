@@ -252,8 +252,8 @@ body {
 /* ===== PAUSE HINT (curvy arrow) ===== */
 .pause-hint {
     position: absolute;
-    bottom: -8px;
-    right: -40px;
+    bottom: 4px;
+    right: calc(50% - 125px);
     display: flex;
     align-items: center;
     gap: 3px;
@@ -395,13 +395,36 @@ body {
     border-radius: 50px;
     margin-bottom: 0;
     position: relative;
-    box-shadow: 0 0 8px rgba(232, 197, 71, 0.3);
-    animation: strokeGlow 3s ease-in-out infinite;
+    z-index: 1;
 }
 
-@keyframes strokeGlow {
-    0%, 100% { box-shadow: 0 0 8px rgba(232, 197, 71, 0.3), 0 0 2px rgba(232, 197, 71, 0.5); }
-    50% { box-shadow: 0 0 18px rgba(232, 197, 71, 0.6), 0 0 4px rgba(232, 197, 71, 0.8); }
+.pick-adventure::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50px;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        rgba(232, 197, 71, 0.8) 10%,
+        transparent 20%
+    );
+    animation: trailSpin 3s linear infinite reverse;
+    z-index: -1;
+}
+
+.pick-adventure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    background: var(--accent);
+    z-index: -1;
+}
+
+@keyframes trailSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* ===== CARDS ===== */
