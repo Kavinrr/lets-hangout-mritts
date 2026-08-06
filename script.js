@@ -3,6 +3,7 @@ const bgMusic = document.getElementById('bgMusic');
 const musicToggleSm = document.getElementById('musicToggleSm');
 let isPlaying = localStorage.getItem('musicPlaying') !== 'false';
 let musicUnlocked = sessionStorage.getItem('musicUnlocked') === 'true';
+let cameFromInnerPage = sessionStorage.getItem('cameFromInnerPage') === 'true';
 
 // Check if we're on the home page (has splash)
 const splash = document.getElementById('splash');
@@ -49,17 +50,28 @@ function initMusic() {
     }
     
     if (isPlaying) {
-        bgMusic.play().catch(() => {
-            // Autoplay blocked on this page — resume on first interaction
-            const resumeOnClick = () => {
-                bgMusic.play();
-                updateVinylState();
-                document.removeEventListener('click', resumeOnClick);
-                document.removeEventListener('touchstart', resumeOnClick);
-            };
-            document.addEventListener('click', resumeOnClick);
-            document.addEventListener('touchstart', resumeOnClick);
-        });
+        // Try to play immediately
+        const playAttempt = bgMusic.play();
+        if (playAttempt !== undefined) {
+            playAttempt.catch(() => {
+                // Browser blocked — use a trick: briefly mute to start, then unmute
+                bgMusic.muted = true;
+                bgMusic.play().then(() => {
+                    bgMusic.muted = false;
+                }).catch(() => {
+                    // Truly blocked — resume on any interaction
+                    const resumeOnClick = () => {
+                        bgMusic.muted = false;
+                        bgMusic.play();
+                        updateVinylState();
+                        document.removeEventListener('click', resumeOnClick);
+                        document.removeEventListener('touchstart', resumeOnClick);
+                    };
+                    document.addEventListener('click', resumeOnClick);
+                    document.addEventListener('touchstart', resumeOnClick);
+                });
+            });
+        }
     }
     
     // Continuously save playback position
@@ -252,18 +264,26 @@ function updateWhatsAppLink(planId) {
 
 // ===== PAGE INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Home page: show splash only on first visit
+    // Home page
     if (isHomePage) {
-        if (musicUnlocked) {
-            // Returning to home — skip splash, just play music
-            if (splash) {
-                splash.remove();
-            }
+        if (cameFromInnerPage) {
+            // Coming back from an inner page — no splash, resume music
+            if (splash) splash.remove();
+            sessionStorage.removeItem('cameFromInnerPage');
             initMusic();
+        } else if (musicUnlocked) {
+            // Refresh on home page — show splash again
+            // Reset session so splash shows
+            if (splash) {
+                // Show splash, but music is already unlocked
+                // Don't remove splash — let user tap it
+            }
         }
+        // Fresh visit — splash shows naturally, wait for tap
         animateCards();
     } else {
-        // Inner pages: remove splash if somehow present, start music
+        // Inner pages: mark that we came from inner page (for back navigation)
+        sessionStorage.setItem('cameFromInnerPage', 'true');
         if (splash) splash.remove();
         initMusic();
     }
