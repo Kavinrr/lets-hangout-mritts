@@ -1,104 +1,135 @@
-// ===== MUSIC PERSISTENCE ACROSS PAGES =====
+// ===== PAGE NAVIGATION WITH HISTORY =====
+function showPage(pageId, pushState = true) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Show target page
+    const target = document.getElementById(pageId);
+    if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        
+        // Re-trigger fade animation
+        target.style.animation = 'none';
+        target.offsetHeight;
+        target.style.animation = '';
+        
+        // Toggle vinyl visibility
+        const vinylSmall = document.getElementById('vinylSmall');
+        if (pageId === 'home') {
+            vinylSmall.classList.remove('visible');
+        } else {
+            vinylSmall.classList.add('visible');
+        }
+
+        // Push to history so phone back button works
+        if (pushState) {
+            history.pushState({ page: pageId }, '', '#' + pageId);
+        }
+
+        // Trigger confetti on accept page
+        if (pageId === 'accept') {
+            launchConfetti();
+        }
+
+        // Animate vibe list items
+        if (pageId === 'vibe') {
+            animateVibeList();
+        }
+
+        // Animate cards when showing home
+        if (pageId === 'home') {
+            animateCards();
+        }
+    }
+}
+
+function goBack() {
+    history.back();
+}
+
+// Handle browser/phone back button
+window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.page) {
+        showPage(e.state.page, false);
+    } else {
+        showPage('home', false);
+    }
+});
+
+// ===== SELECT AN OPTION =====
+function selectOption(planId) {
+    selectedPlan = planId;
+    showPage('accept');
+    
+    const planMessages = {
+        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos.",
+        plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
+        plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
+        plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
+    };
+
+    const acceptTitle = document.getElementById('acceptTitle');
+    const acceptIntro = document.getElementById('acceptIntro');
+    const dropdownWrapper = document.getElementById('dropdownWrapper');
+    const confirmSection = document.getElementById('acceptConfirm');
+    const backBtn = document.getElementById('backBtn');
+
+    acceptTitle.textContent = 'Great choice.';
+    acceptIntro.textContent = planMessages[planId];
+    dropdownWrapper.style.display = 'none';
+    confirmSection.style.display = 'block';
+    if (backBtn) backBtn.style.display = 'none';
+    updateWhatsAppLink(planId);
+}
+
+let selectedPlan = null;
+
+// ===== WHATSAPP LINK =====
+function updateWhatsAppLink(planId) {
+    const waMessages = {
+        plan1: "Hey! I'm in for the road trip 🚗 Let's figure out a day?",
+        plan2: "Tony Bourdain it is 🎬 When are we doing this?",
+        plan3: "My turn to show you around 🗺️ Pick a day!",
+        plan4: "Bengali fish please 👨‍🍳 When works for you?"
+    };
+    
+    const waBtn = document.getElementById('waBtn');
+    if (waBtn && waMessages[planId]) {
+        const msg = encodeURIComponent(waMessages[planId]);
+        waBtn.href = `https://wa.me/918248324352?text=${msg}`;
+        waBtn.style.display = 'inline-block';
+    }
+}
+
+// ===== MUSIC =====
 const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
 const musicToggleSm = document.getElementById('musicToggleSm');
-let isPlaying = localStorage.getItem('musicPlaying') !== 'false';
-let musicUnlocked = sessionStorage.getItem('musicUnlocked') === 'true';
-let cameFromInnerPage = sessionStorage.getItem('cameFromInnerPage') === 'true';
+let isPlaying = false;
 
-// Check if we're on the home page (has splash)
-const splash = document.getElementById('splash');
-const isHomePage = !!splash;
-
-// ===== SPLASH / AUDIO UNLOCK (home page only) =====
 function enterSite() {
+    const splash = document.getElementById('splash');
     if (splash) {
         splash.classList.add('hidden');
         setTimeout(() => splash.remove(), 600);
     }
     
-    // Unlock and start music
-    musicUnlocked = true;
+    // Start music
     isPlaying = true;
-    sessionStorage.setItem('musicUnlocked', 'true');
-    localStorage.setItem('musicPlaying', 'true');
-    localStorage.setItem('musicTime', '0');
-    
-    bgMusic.muted = false;
     bgMusic.volume = 0.4;
-    bgMusic.currentTime = 0;
+    bgMusic.muted = false;
     bgMusic.play();
-    
-    // Save playback position continuously
-    bgMusic.addEventListener('timeupdate', () => {
-        localStorage.setItem('musicTime', String(bgMusic.currentTime));
-    });
-    
     updateVinylState();
+    
+    // Set initial history state
+    history.replaceState({ page: 'home' }, '', '#home');
 }
 
-// ===== INIT MUSIC STATE =====
-function initMusic() {
-    if (!musicUnlocked) return;
-    
-    bgMusic.volume = 0.4;
-    bgMusic.muted = false;
-    
-    // Resume from last position
-    const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
-    if (savedTime > 0) {
-        bgMusic.currentTime = savedTime;
-    }
-    
-    if (isPlaying) {
-        // Try to play immediately
-        const playAttempt = bgMusic.play();
-        if (playAttempt !== undefined) {
-            playAttempt.catch(() => {
-                // Browser blocked — use a trick: briefly mute to start, then unmute
-                bgMusic.muted = true;
-                bgMusic.play().then(() => {
-                    bgMusic.muted = false;
-                }).catch(() => {
-                    // Truly blocked — resume on any interaction
-                    const resumeOnClick = () => {
-                        bgMusic.muted = false;
-                        bgMusic.play();
-                        updateVinylState();
-                        document.removeEventListener('click', resumeOnClick);
-                        document.removeEventListener('touchstart', resumeOnClick);
-                    };
-                    document.addEventListener('click', resumeOnClick);
-                    document.addEventListener('touchstart', resumeOnClick);
-                });
-            });
-        }
-    }
-    
-    // Continuously save playback position
-    bgMusic.addEventListener('timeupdate', () => {
-        localStorage.setItem('musicTime', String(bgMusic.currentTime));
-    });
-    
-    updateVinylState();
-}
-
-// ===== TOGGLE MUSIC =====
 function toggleMusic() {
-    if (!musicUnlocked) {
-        // First interaction on a non-home page — unlock
-        musicUnlocked = true;
-        isPlaying = true;
-        sessionStorage.setItem('musicUnlocked', 'true');
-        localStorage.setItem('musicPlaying', 'true');
-        bgMusic.volume = 0.4;
-        bgMusic.muted = false;
-        bgMusic.play();
-        updateVinylState();
-        return;
-    }
-    
     isPlaying = !isPlaying;
-    localStorage.setItem('musicPlaying', String(isPlaying));
     
     if (isPlaying) {
         bgMusic.play();
@@ -110,8 +141,7 @@ function toggleMusic() {
 }
 
 function updateVinylState() {
-    const vinyls = document.querySelectorAll('.vinyl');
-    vinyls.forEach(v => {
+    document.querySelectorAll('.vinyl').forEach(v => {
         if (isPlaying) {
             v.classList.remove('paused');
         } else {
@@ -119,20 +149,41 @@ function updateVinylState() {
         }
     });
     
-    // Update all toggle icons on this page
     document.querySelectorAll('.music-icon, .music-icon-sm').forEach(icon => {
         icon.textContent = isPlaying ? '♪' : '◼';
     });
 }
 
-// ===== BIND MUSIC TOGGLES =====
-const musicToggle = document.getElementById('musicToggle');
-if (musicToggle) {
-    musicToggle.addEventListener('click', toggleMusic);
-}
-if (musicToggleSm) {
-    musicToggleSm.addEventListener('click', toggleMusic);
-}
+musicToggle.addEventListener('click', toggleMusic);
+musicToggleSm.addEventListener('click', toggleMusic);
+
+// Start vinyl paused until splash is tapped
+document.querySelectorAll('.vinyl').forEach(v => v.classList.add('paused'));
+
+// ===== DROPDOWN (accept page) =====
+const planSelect = document.getElementById('planSelect');
+planSelect.addEventListener('change', () => {
+    const selected = planSelect.value;
+    const planMessages = {
+        plan1: "Windows down, music up, no destination. You just signed up for the best kind of chaos.",
+        plan2: "Tony would approve. I'll make sure the beer is cold and the conversation is warm.",
+        plan3: "Your city, your rules. I'm just happy to finally see it through your eyes.",
+        plan4: "Bengali fish, comfortable silence, and nowhere to be. Sounds like a perfect day to me."
+    };
+    
+    const acceptIntro = document.getElementById('acceptIntro');
+    const dropdownWrapper = document.getElementById('dropdownWrapper');
+    const confirmSection = document.getElementById('acceptConfirm');
+    const backBtn = document.getElementById('backBtn');
+    
+    if (planMessages[selected]) {
+        acceptIntro.textContent = planMessages[selected];
+    }
+    dropdownWrapper.style.display = 'none';
+    confirmSection.style.display = 'block';
+    if (backBtn) backBtn.style.display = 'none';
+    updateWhatsAppLink(selected);
+});
 
 // ===== CONFETTI =====
 function launchConfetti() {
@@ -190,152 +241,5 @@ function animateCards() {
     });
 }
 
-// ===== ACCEPT PAGE LOGIC =====
-function initAcceptPage() {
-    const params = new URLSearchParams(window.location.search);
-    const preselectedPlan = params.get('plan');
-    
-    const planMessages = {
-        plan1: "Let's rage on the road?!",
-        plan2: "Tony would approve!",
-        plan3: "I'm just happy to be dragged around by a baddie.",
-        plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
-    };
-
-    const planNames = {
-        plan1: 'Road Trip.exe',
-        plan2: 'Anthony Bourdain Appreciation Society',
-        plan3: 'Your Turn',
-        plan4: 'Home Chef DLC'
-    };
-    
-    const acceptTitle = document.getElementById('acceptTitle');
-    const acceptIntro = document.getElementById('acceptIntro');
-    const dropdown = document.getElementById('planSelect');
-    const dropdownWrapper = document.getElementById('dropdownWrapper');
-    const confirmSection = document.getElementById('acceptConfirm');
-    const backBtn = document.getElementById('backBtn');
-    
-    if (preselectedPlan && planNames[preselectedPlan]) {
-        // Came from a specific plan page — hide intro & dropdown, show custom message
-        acceptTitle.textContent = 'Great choice.';
-        acceptIntro.textContent = planMessages[preselectedPlan];
-        dropdown.value = preselectedPlan;
-        dropdownWrapper.style.display = 'none';
-        confirmSection.style.display = 'block';
-        if (backBtn) backBtn.style.display = 'none';
-        updateWhatsAppLink(preselectedPlan);
-    }
-    
-    // Dropdown change handler
-    if (dropdown) {
-        dropdown.addEventListener('change', () => {
-            const selected = dropdown.value;
-            if (planMessages[selected]) {
-                acceptIntro.textContent = planMessages[selected];
-            }
-            dropdownWrapper.style.display = 'none';
-            confirmSection.style.display = 'block';
-            if (backBtn) backBtn.style.display = 'none';
-            updateWhatsAppLink(selected);
-        });
-    }
-    
-    // Launch confetti
-    launchConfetti();
-}
-
-// ===== WHATSAPP LINK =====
-function updateWhatsAppLink(planId) {
-    const waMessages = {
-        plan1: "Hey! I'm in for the road trip 🚗 Let's figure out a day?",
-        plan2: "Tony Bourdain it is 🎬 When are we doing this?",
-        plan3: "My turn to show you around 🗺️ Pick a day!",
-        plan4: "Cook for me please Chef 👨‍🍳 When works for you?"
-    };
-    
-    const waBtn = document.getElementById('waBtn');
-    if (waBtn && waMessages[planId]) {
-        const msg = encodeURIComponent(waMessages[planId]);
-        waBtn.href = `https://wa.me/918248324352?text=${msg}`;
-        waBtn.style.display = 'inline-block';
-    }
-}
-
-// ===== PAGE INIT =====
-document.addEventListener('DOMContentLoaded', () => {
-    // Home page
-    if (isHomePage) {
-        if (cameFromInnerPage) {
-            // Coming back from an inner page — no splash, resume music
-            if (splash) splash.remove();
-            sessionStorage.removeItem('cameFromInnerPage');
-            
-            // Resume music
-            bgMusic.volume = 0.4;
-            bgMusic.muted = false;
-            const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
-            if (savedTime > 0) bgMusic.currentTime = savedTime;
-            
-            bgMusic.play().catch(() => {});
-            
-            // Save position
-            bgMusic.addEventListener('timeupdate', () => {
-                localStorage.setItem('musicTime', String(bgMusic.currentTime));
-            });
-            updateVinylState();
-        } else if (!musicUnlocked) {
-            // Fresh visit — splash shows naturally, wait for tap
-        }
-        
-        // Always listen for interactions to resume music on home page
-        const tryResume = () => {
-            if (bgMusic.paused && isPlaying && musicUnlocked) {
-                const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
-                if (savedTime > 0 && Math.abs(bgMusic.currentTime - savedTime) > 2) {
-                    bgMusic.currentTime = savedTime;
-                }
-                bgMusic.volume = 0.4;
-                bgMusic.muted = false;
-                bgMusic.play().then(() => {
-                    updateVinylState();
-                }).catch(() => {});
-            }
-        };
-        
-        // Multiple event listeners for maximum coverage
-        document.addEventListener('touchstart', tryResume, { passive: true });
-        document.addEventListener('click', tryResume);
-        document.addEventListener('scroll', tryResume, { passive: true });
-        document.addEventListener('touchmove', tryResume, { passive: true });
-        
-        // Also try on pageshow (fires on back/forward cache)
-        window.addEventListener('pageshow', (e) => {
-            if (e.persisted) {
-                tryResume();
-            }
-        });
-        
-        animateCards();
-    } else {
-        // Inner pages: mark that we came from inner page (for back navigation)
-        sessionStorage.setItem('cameFromInnerPage', 'true');
-        if (splash) splash.remove();
-        initMusic();
-    }
-    
-    // Accept page
-    if (document.getElementById('accept')) {
-        initAcceptPage();
-    }
-    
-    // Vibe page
-    if (document.querySelector('.vibe-list')) {
-        animateVibeList();
-    }
-    
-    // Update vinyl visual state
-    if (musicUnlocked) {
-        updateVinylState();
-    }
-});
+// ===== INIT =====
+animateCards();
