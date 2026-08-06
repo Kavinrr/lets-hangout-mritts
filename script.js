@@ -20,10 +20,17 @@ function enterSite() {
     isPlaying = true;
     localStorage.setItem('musicUnlocked', 'true');
     localStorage.setItem('musicPlaying', 'true');
+    localStorage.setItem('musicTime', '0');
     
     bgMusic.muted = false;
     bgMusic.volume = 0.4;
+    bgMusic.currentTime = 0;
     bgMusic.play();
+    
+    // Save playback position continuously
+    bgMusic.addEventListener('timeupdate', () => {
+        localStorage.setItem('musicTime', String(bgMusic.currentTime));
+    });
     
     updateVinylState();
 }
@@ -35,11 +42,22 @@ function initMusic() {
     bgMusic.volume = 0.4;
     bgMusic.muted = false;
     
+    // Resume from last position
+    const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
+    if (savedTime > 0) {
+        bgMusic.currentTime = savedTime;
+    }
+    
     if (isPlaying) {
         bgMusic.play().catch(() => {
             // Autoplay blocked — that's fine, user can tap toggle
         });
     }
+    
+    // Continuously save playback position
+    bgMusic.addEventListener('timeupdate', () => {
+        localStorage.setItem('musicTime', String(bgMusic.currentTime));
+    });
     
     updateVinylState();
 }
@@ -226,11 +244,13 @@ function updateWhatsAppLink(planId) {
 
 // ===== PAGE INIT =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Home page: always show splash as entry experience
+    // Home page: show splash only on first visit
     if (isHomePage) {
-        // Always show splash — it's part of the experience
         if (musicUnlocked) {
-            // Music was already unlocked, start it behind the splash
+            // Returning to home — skip splash, just play music
+            if (splash) {
+                splash.remove();
+            }
             initMusic();
         }
         animateCards();
