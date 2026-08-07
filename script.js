@@ -102,10 +102,29 @@ function selectOption(planId) {
     dropdownWrapper.style.display = 'none';
     confirmSection.style.display = 'block';
     if (backBtn) backBtn.style.display = 'none';
+    showAcceptImage(planId);
     updateWhatsAppLink(planId);
 }
 
 let selectedPlan = null;
+
+// ===== ACCEPT PAGE IMAGE =====
+function showAcceptImage(planId) {
+    const planImages = {
+        plan1: 'images/accept/roadtrip.jpg',
+        plan2: 'images/accept/bourdain.jpg',
+        plan3: 'images/accept/yourturn.jpg',
+        plan4: 'images/accept/homechef.jpg'
+    };
+    
+    const acceptImg = document.getElementById('acceptImg');
+    const acceptImgSrc = document.getElementById('acceptImgSrc');
+    
+    if (acceptImg && planImages[planId]) {
+        acceptImgSrc.src = planImages[planId];
+        acceptImg.style.display = 'block';
+    }
+}
 
 // ===== WHATSAPP LINK =====
 function updateWhatsAppLink(planId) {
@@ -185,9 +204,9 @@ const planSelect = document.getElementById('planSelect');
 planSelect.addEventListener('change', () => {
     const selected = planSelect.value;
     const planMessages = {
-        plan1: "Time for a roadroad‼️",
+        plan1: "Time for road rage‼️",
         plan2: "Tony would approve‼️",
-        plan3: "I'm just happy to be dragged around by a baddie. :P",
+        plan3: "I'm just happy to be dragged around by a baddie :P",
         plan4: "A fish dish based out of Bengali Cuisine, comfortable silence, and obscure videos on the tv?"
     };
     
@@ -204,6 +223,7 @@ planSelect.addEventListener('change', () => {
     dropdownWrapper.style.display = 'none';
     confirmSection.style.display = 'block';
     if (backBtn) backBtn.style.display = 'none';
+    showAcceptImage(selected);
     updateWhatsAppLink(selected);
 });
 
@@ -219,6 +239,7 @@ showPage = function(pageId, pushState = true) {
         document.getElementById('backBtn').style.display = '';
         document.getElementById('planSelect').value = '';
         document.getElementById('waBtn').style.display = 'none';
+        document.getElementById('acceptImg').style.display = 'none';
     }
     // Reset selectedPlan after showing accept
     if (pageId !== 'accept') {
