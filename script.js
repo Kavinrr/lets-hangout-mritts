@@ -111,7 +111,7 @@ let selectedPlan = null;
 // ===== ACCEPT PAGE IMAGE =====
 function showAcceptImage(planId) {
     const planImages = {
-        plan1: 'images/accept/roadtrip.jpg',
+        plan1: 'images/accept/road rage.jpeg',
         plan2: 'images/accept/bourdain.jpg',
         plan3: 'images/accept/yourturn.jpg',
         plan4: 'images/accept/homechef.jpg'
