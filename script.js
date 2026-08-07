@@ -241,7 +241,7 @@ showPage = function(pageId, pushState = true) {
     // Reset accept page if going there without selectOption
     if (pageId === 'accept' && !selectedPlan) {
         document.getElementById('acceptTitle').textContent = 'You just made my week.';
-        document.getElementById('acceptIntro').textContent = "Personally, I'd be fine to just share a chai and sutta break with you. But since we're here...";
+        document.getElementById('acceptIntro').textContent = "Personally, I'd be super happy to just share a chai and sutta break with you. But since we're here...";
         document.getElementById('dropdownWrapper').style.display = '';
         document.getElementById('acceptConfirm').style.display = 'none';
         document.getElementById('backBtn').style.display = '';
