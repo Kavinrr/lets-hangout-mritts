@@ -88,7 +88,7 @@ function selectOption(planId) {
         plan1: "Let's rage on the road?!",
         plan2: "Tony would approve!",
         plan3: "I'm just happy to be dragged around by a baddie.",
-        plan4: "A home cooked Bengali fish dish Cuisine, comfortable silence, and obscure youtubr videos on the background?"
+        plan4: "A home cooked Bengali fish dish, comfortable silence, and obscure youtubr videos on the background?"
     };
 
     const acceptTitle = document.getElementById('acceptTitle');
@@ -215,7 +215,7 @@ planSelect.addEventListener('change', () => {
         plan1: "Time for road rage‼️",
         plan2: "Tony would approve‼️",
         plan3: "I'm just happy to be dragged around by a baddie :P",
-        plan4: "A home cooked Bengali fish dish Cuisine, comfortable silence, and obscure youtubr videos on the background?"
+        plan4: "A home cooked Bengali fish dish, comfortable silence, and obscure youtubr videos on the background?"
     };
     
     const acceptTitle = document.getElementById('acceptTitle');
