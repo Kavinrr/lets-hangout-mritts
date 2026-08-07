@@ -330,13 +330,13 @@ body {
 }
 
 .music-toggle-sm {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: var(--bg-card);
-    border: 1.5px solid var(--accent);
+    border: 2px solid var(--accent);
     color: var(--accent);
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     cursor: pointer;
     transition: var(--transition);
     display: flex;
