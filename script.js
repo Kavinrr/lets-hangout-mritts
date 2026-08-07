@@ -117,11 +117,19 @@ function showAcceptImage(planId) {
         plan4: 'images/accept/homechef.jpg'
     };
     
+    const planPositions = {
+        plan1: 'center 25%',
+        plan2: 'center 25%',
+        plan3: 'center 25%',
+        plan4: 'center 50%'
+    };
+    
     const acceptImg = document.getElementById('acceptImg');
     const acceptImgSrc = document.getElementById('acceptImgSrc');
     
     if (acceptImg && planImages[planId]) {
         acceptImgSrc.src = planImages[planId];
+        acceptImgSrc.style.objectPosition = planPositions[planId] || 'center 25%';
         acceptImg.style.display = 'block';
     }
 }
