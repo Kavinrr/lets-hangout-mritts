@@ -121,7 +121,7 @@ function showAcceptImage(planId) {
         plan1: 'center 25%',
         plan2: 'center 25%',
         plan3: 'center 25%',
-        plan4: 'center 50%'
+        plan4: 'center 40%'
     };
     
     const acceptImg = document.getElementById('acceptImg');
