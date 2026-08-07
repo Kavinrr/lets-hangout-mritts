@@ -852,11 +852,12 @@ body {
 }
 
 .accept-img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    max-width: 300px;
+    height: 140px;
     border-radius: var(--radius);
     overflow: hidden;
-    margin: 1.5rem auto;
+    margin: 1.2rem auto;
 }
 
 .accept-img img {

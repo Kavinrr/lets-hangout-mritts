@@ -112,8 +112,8 @@ let selectedPlan = null;
 function showAcceptImage(planId) {
     const planImages = {
         plan1: 'images/accept/road rage.jpeg',
-        plan2: 'images/accept/bourdain.jpg',
-        plan3: 'images/accept/yourturn.jpg',
+        plan2: 'images/accept/tony',
+        plan3: 'images/accept/baddie.jpg',
         plan4: 'images/accept/homechef.jpg'
     };
     
